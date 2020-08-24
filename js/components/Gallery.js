@@ -1,16 +1,17 @@
 import { GalleryList } from './GalleryList.js';
+import { GalleryFilter } from './GalleryFilter.js';
 
 class Gallery {
     constructor(params) {
         this.selector = params.selector;
         this.data = params.data;
+        this.imagesDirectory = params.imagesDirectory;
 
         this.selectorDOM = null;
         this.DOM = null;
 
+        this.FILTER = null;
         this.LIST = null;
-
-        console.log(params);
 
         this.init();
     }
@@ -20,10 +21,17 @@ class Gallery {
             return;
         }
         this.render();
-        this.LIST = new GalleryList({
+
+        this.FILTER = new GalleryFilter({
             parentDOM: this.DOM,
             data: this.data
         });
+        this.LIST = new GalleryList({
+            parentDOM: this.DOM,
+            data: this.data,
+            imagesDirectory: this.imagesDirectory
+        });
+
         this.addEvents();
     }
 
@@ -52,8 +60,6 @@ class Gallery {
     render() {
         this.selectorDOM.innerHTML = `<div class="gallery"></div>`;
         this.DOM = this.selectorDOM.querySelector('.gallery');
-
-        console.log(this.DOM);
     }
 }
 
@@ -64,6 +70,8 @@ export { Gallery };
 
 /*
 - Gallery.js
+    - filter
+        - option
     - GalleryList.js
         - GalleryListItem.js
 */

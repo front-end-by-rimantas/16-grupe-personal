@@ -4,6 +4,7 @@ class GalleryList {
     constructor(params) {
         this.parentDOM = params.parentDOM;
         this.data = params.data;
+        this.imagesDirectory = params.imagesDirectory;
 
         this.DOM = null;
 
@@ -15,7 +16,8 @@ class GalleryList {
         for (const item of this.data) {
             new GalleryListItem({
                 parentDOM: this.DOM,
-                data: item
+                data: item,
+                imagesDirectory: this.imagesDirectory
             });
         }
         this.addEvents();
@@ -25,7 +27,7 @@ class GalleryList {
     }
 
     render() {
-        this.parentDOM.innerHTML = `<div class="list"></div>`;
+        this.parentDOM.insertAdjacentHTML('beforeend', `<div class="list"></div>`);
         this.DOM = this.parentDOM.querySelector('.list');
     }
 }

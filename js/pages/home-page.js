@@ -15,7 +15,8 @@ new Gallery({
     selector: '#featured_projects',
     data: galleryData,
     limit: 6,
-    orderBy: 'newest'
+    orderBy: 'newest',
+    imagesDirectory: './img/portfolio/'
 });
 new Footer({
     selector: '#main_footer'
