@@ -1,7 +1,7 @@
 class GalleryFilterOption {
     constructor(params) {
         this.parentDOM = params.parentDOM;
-        this.data = params.data;
+        this.tag = params.data;
 
         this.DOM = null;
 
@@ -17,7 +17,7 @@ class GalleryFilterOption {
     }
 
     render() {
-        this.parentDOM.insertAdjacentHTML('beforeend', `<div class="option">FILTER OPTION: ${this.data.title}</div>`);
+        this.parentDOM.insertAdjacentHTML('beforeend', `<div class="option">${this.tag}</div>`);
         this.DOM = this.parentDOM.querySelector('.option');
     }
 }

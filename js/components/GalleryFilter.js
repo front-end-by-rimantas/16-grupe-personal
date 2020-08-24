@@ -4,6 +4,9 @@ class GalleryFilter {
     constructor(params) {
         this.parentDOM = params.parentDOM;
         this.data = params.data;
+        this.tags = [];
+
+        console.log(this.data);
 
         this.DOM = null;
 
@@ -12,14 +15,25 @@ class GalleryFilter {
 
     init() {
         this.render();
+        this.filterTags();
 
-        for (const item of this.data) {
+        for (const tag of this.tags) {
             new GalleryFilterOption({
                 parentDOM: this.DOM,
-                data: item
+                data: tag
             });
         }
         this.addEvents();
+    }
+
+    filterTags() {
+        for (const item of this.data) {
+            for (const tag of item.tags) {
+                if (!this.tags.includes(tag)) {
+                    this.tags.push(tag);
+                }
+            }
+        }
     }
 
     addEvents() {
