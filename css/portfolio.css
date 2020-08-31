@@ -4,12 +4,20 @@
     display: grid;
 }
     .gallery > .filter {
-
+        padding: 40px 0;
+        text-align: center;
     }
         .gallery > .filter > .option {
             display: inline-block;
-            padding: 5px;
+            padding: 5px 10px;
+            font-size: 20px;
+            cursor: pointer;
         }
+            .gallery > .filter > .option:hover,
+            .gallery > .filter > .option.active {
+                color: #36f;
+                text-decoration: underline;
+            }
     .gallery > .list {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
