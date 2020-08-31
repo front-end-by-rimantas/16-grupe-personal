@@ -24,7 +24,11 @@
         gap: 30px;
     }
         .gallery > .list > .item {
+            display: inline-block;
         }
+            .gallery > .list > .item.hidden {
+                display: none;
+            }
             .gallery > .list > .item > .image {
                 width: 100%;
                 position: relative;

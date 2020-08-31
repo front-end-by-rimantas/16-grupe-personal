@@ -4,6 +4,8 @@ class GalleryFilter {
     constructor(params) {
         this.parentDOM = params.parentDOM;
         this.data = params.data;
+        this.galleryStateUpdate = params.stateUpdate;
+
         this.tags = [];
         this.options = [];
         this.activeOption = 0;
@@ -65,6 +67,8 @@ class GalleryFilter {
         this.options[this.activeOption].activeOff();
         this.activeOption = optionIndex;
         this.options[optionIndex].activeOn();
+
+        this.galleryStateUpdate(this.tags[this.activeOption - 1]);
     }
 }
 

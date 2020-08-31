@@ -24,7 +24,8 @@ class Gallery {
 
         this.FILTER = new GalleryFilter({
             parentDOM: this.DOM,
-            data: this.data
+            data: this.data,
+            stateUpdate: this.updateGalleryState
         });
         this.LIST = new GalleryList({
             parentDOM: this.DOM,
@@ -60,6 +61,10 @@ class Gallery {
     render() {
         this.selectorDOM.innerHTML = `<div class="gallery"></div>`;
         this.DOM = this.selectorDOM.querySelector('.gallery');
+    }
+
+    updateGalleryState = (tag) => {
+        this.LIST.filterItemsByTag(tag);
     }
 }
 
