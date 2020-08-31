@@ -1,3 +1,5 @@
+import { Lightbox } from './Lightbox.js';
+
 class GalleryListItem {
     constructor(params) {
         this.parentDOM = params.parentDOM;
@@ -37,10 +39,7 @@ class GalleryListItem {
 
     addEvents() {
         this.hoverDOM.addEventListener('click', () => {
-            const visibleItems = this.visibleItems();
-
-            console.log('SHOW LIGHTBOX...');
-            console.log(visibleItems);
+            new Lightbox(this.visibleItems());
         });
     }
 
