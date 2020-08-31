@@ -4,8 +4,12 @@ class GalleryListItem {
         this.data = params.data;
         this.imagesDirectory = params.imagesDirectory;
         this.index = params.index;
+        this.isVisible = true;
+
+        this.visibleItems = params.visibleItems;
 
         this.DOM = null;
+        this.hoverDOM = null;
 
         this.init();
     }
@@ -13,9 +17,6 @@ class GalleryListItem {
     init() {
         this.render();
         this.addEvents();
-    }
-
-    addEvents() {
     }
 
     render() {
@@ -31,15 +32,25 @@ class GalleryListItem {
                     </div>`;
         this.parentDOM.insertAdjacentHTML('beforeend', HTML);
         this.DOM = this.parentDOM.querySelector(`.item[data-index="${this.index}"]`);
+        this.hoverDOM = this.DOM.querySelector('.hover');
+    }
+
+    addEvents() {
+        this.hoverDOM.addEventListener('click', () => {
+            const visibleItems = this.visibleItems();
+
+            console.log('SHOW LIGHTBOX...');
+            console.log(visibleItems);
+        });
     }
 
     updateState(tag) {
-        console.log('Update item:', tag, '->', this.data.tags);
-
         if (this.data.tags.indexOf(tag) > -1 || !tag) {
             this.DOM.classList.remove('hidden');
+            this.isVisible = true;
         } else {
             this.DOM.classList.add('hidden');
+            this.isVisible = false;
         }
     }
 }

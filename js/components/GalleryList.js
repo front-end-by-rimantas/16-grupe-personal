@@ -22,7 +22,8 @@ class GalleryList {
                 parentDOM: this.DOM,
                 data: item,
                 imagesDirectory: this.imagesDirectory,
-                index: itemIndex++
+                index: itemIndex++,
+                visibleItems: this.currentlyVisibleGalleryItems
             }));
         }
         this.addEvents();
@@ -40,6 +41,21 @@ class GalleryList {
         for (const item of this.itemsList) {
             item.updateState(tag);
         }
+    }
+
+    currentlyVisibleGalleryItems = () => {
+        let data = [];
+
+        for (const item of this.itemsList) {
+            if (item.isVisible) {
+                data.push({
+                    ...item.data,
+                    directory: item.imagesDirectory
+                })
+            }
+        }
+
+        return data;
     }
 }
 
