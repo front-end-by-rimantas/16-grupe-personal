@@ -11,6 +11,7 @@ class Lightbox {
 
         this.parentDOM = document.querySelector('body');
         this.DOM = null;
+        this.imageDOM = null;
         this.originalSizeDOM = null;
         this.zoomMinusDOM = null;
         this.zoomPlusDOM = null;
@@ -20,6 +21,8 @@ class Lightbox {
         this.exitDOM = null;
         this.previousDOM = null;
         this.nextDOM = null;
+
+        this.currentImage = 0;
 
         this.init();
     }
@@ -55,6 +58,7 @@ class Lightbox {
             </div>
         `);
         this.DOM = this.parentDOM.querySelector('.lightbox');
+        this.imageDOM = this.DOM.querySelector('.img');
         this.originalSizeDOM = this.DOM.querySelector('.fa-clone');
         this.zoomMinusDOM = this.DOM.querySelector('.fa-search-minus');
         this.zoomPlusDOM = this.DOM.querySelector('.fa-search-plus');
@@ -69,6 +73,24 @@ class Lightbox {
 
     close() {
         this.DOM.remove();
+    }
+
+    previousImage() {
+        this.currentImage--;
+        if (this.currentImage === -1) {
+            this.currentImage = this.imageCount - 1;
+        }
+        const imagePath = this.images[this.currentImage].directory + this.images[this.currentImage].img;
+        this.imageDOM.style.backgroundImage = `url(${imagePath})`;
+    }
+
+    nextImage() {
+        this.currentImage++;
+        if (this.currentImage === this.imageCount) {
+            this.currentImage = 0;
+        }
+        const imagePath = this.images[this.currentImage].directory + this.images[this.currentImage].img;
+        this.imageDOM.style.backgroundImage = `url(${imagePath})`;
     }
 
     addEvents() {
@@ -96,21 +118,30 @@ class Lightbox {
             console.log('ACTION: downloadDOM');
         })
 
-        this.exitDOM.addEventListener('click', () => {
-            this.close();
-        })
+        this.exitDOM.addEventListener('click', () => this.close())
 
-        this.previousDOM.addEventListener('click', () => {
-            console.log('ACTION: previousDOM');
-        })
+        this.previousDOM.addEventListener('click', () => this.previousImage())
 
-        this.nextDOM.addEventListener('click', () => {
-            console.log('ACTION: nextDOM');
-        })
+        this.nextDOM.addEventListener('click', () => this.nextImage())
 
         window.addEventListener('keyup', (e) => {
-            if (e.keyCode === 27) {
-                this.close();
+            switch (e.keyCode) {
+                case 27:
+                    this.close();
+                    break;
+
+                case 65:    // a - previous
+                case 37:    // left - previous
+                    this.previousImage();
+                    break;
+
+                case 68:    // d - next
+                case 39:    // right - next
+                    this.nextImage();
+                    break;
+
+                default:
+                    break;
             }
         });
     }
