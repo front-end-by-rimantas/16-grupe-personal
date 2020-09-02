@@ -38,6 +38,8 @@
                     width: 100%;
                     height: 240px;
                     background-color: #eee;
+                    object-fit: cover;
+                    object-position: center;
                 }
                 .gallery > .list > .item > .image > .hover {
                     display: none;

@@ -1,0 +1,69 @@
+.lightbox {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000e;
+    color: #fff;
+}
+    .lightbox > * {
+        display: inline-block;
+        width: 100%;
+        height: 40px;
+        float: left;
+    }
+    .lightbox > .top {
+        padding: 0 15px;
+    }
+    .lightbox > .middle {
+        height: calc(100vh - 80px);
+    }
+    .lightbox > .bottom {
+        padding: 10px 20px;
+        line-height: 20px;
+        text-align: center;
+    }
+
+    .lightbox > .top > .count {
+        display: inline-block;
+        float: left;
+        padding: 0 10px;
+        line-height: 40px;
+    }
+    .lightbox > .top > .actions {
+        display: inline-block;
+        float: right;
+    }
+        .lightbox > .top > .actions > .fa {
+            display: inline-block;
+            float: left;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+        }
+
+    .lightbox > .middle > .fa {
+        display: inline-block;
+        float: left;
+        height: 100%;
+        line-height: calc(100vh - 80px);
+        text-align: center;
+        font-size: 40px;
+        width: 60px;
+    }
+    .lightbox > .middle > .img {
+        display: inline-block;
+        float: left;
+        height: 100%;
+        width: calc(100% - 120px);
+        background-image: url(../img/portfolio/serlokas.jpg);
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: center;
+    }
+
+    .lightbox.no-navigation > .middle > .fa {
+        visibility: hidden;
+    }
