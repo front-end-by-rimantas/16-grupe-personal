@@ -30,6 +30,8 @@ class Lightbox {
     }
 
     render() {
+        console.log(this.images);
+
         this.parentDOM.insertAdjacentHTML('beforeend', `
             <div class="lightbox ${this.imageCount < 2 ? 'no-navigation' : ''}">
                 <div class="top">
@@ -46,7 +48,7 @@ class Lightbox {
                 </div>
                 <div class="middle">
                     <i class="fa fa-caret-left"></i>
-                    <div class="img"></div>
+                    <div class="img" style="background-image: url('${this.images[0].directory + this.images[0].img}');"></div>
                     <i class="fa fa-caret-right"></i>
                 </div>
                 <div class="bottom">Nuotraukos pavadinimas/tekstas</div>
@@ -63,6 +65,10 @@ class Lightbox {
         this.previousDOM = this.DOM.querySelector('.fa-caret-left');
         this.nextDOM = this.DOM.querySelector('.fa-caret-right');
 
+    }
+
+    close() {
+        this.DOM.remove();
     }
 
     addEvents() {
@@ -91,7 +97,7 @@ class Lightbox {
         })
 
         this.exitDOM.addEventListener('click', () => {
-            console.log('ACTION: exitDOM');
+            this.close();
         })
 
         this.previousDOM.addEventListener('click', () => {
@@ -102,6 +108,11 @@ class Lightbox {
             console.log('ACTION: nextDOM');
         })
 
+        window.addEventListener('keyup', (e) => {
+            if (e.keyCode === 27) {
+                this.close();
+            }
+        });
     }
 }
 

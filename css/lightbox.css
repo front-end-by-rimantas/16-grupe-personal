@@ -58,9 +58,8 @@
         float: left;
         height: 100%;
         width: calc(100% - 120px);
-        background-image: url(../img/portfolio/serlokas.jpg);
         background-repeat: no-repeat;
-        background-size: auto;
+        background-size: contain;
         background-position: center;
     }
 
