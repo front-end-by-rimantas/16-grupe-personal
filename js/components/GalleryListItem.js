@@ -39,7 +39,7 @@ class GalleryListItem {
 
     addEvents() {
         this.hoverDOM.addEventListener('click', () => {
-            new Lightbox(this.visibleItems());
+            new Lightbox(this.visibleItems(), this.data.img);
         });
     }
 

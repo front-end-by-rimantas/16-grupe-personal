@@ -2,9 +2,10 @@
 // TODO: paspaudimas juodame fone irgi uzdaro
 
 class Lightbox {
-    constructor(params) {
-        this.images = params;
+    constructor(imageList, clickedImage) {
+        this.images = imageList;
         this.imageCount = this.images.length;
+        this.clickedImage = clickedImage;
 
         this.parentDOM = document.querySelector('body');
         this.DOM = null;
@@ -25,13 +26,22 @@ class Lightbox {
     }
 
     init() {
+        this.initialVisibleImage();
         this.render();
         this.addEvents();
     }
 
-    render() {
-        console.log(this.images);
+    initialVisibleImage() {
+        for (let i = 0; i < this.imageCount; i++) {
+            if (this.images[i].img === this.clickedImage) {
+                this.currentImage = i;
+                return;
+            }
+        }
+        this.currentImage = 0;
+    }
 
+    render() {
         this.parentDOM.insertAdjacentHTML('beforeend', `
             <div class="lightbox ${this.imageCount < 2 ? 'no-navigation' : ''}">
                 <div class="top">
@@ -48,7 +58,7 @@ class Lightbox {
                 </div>
                 <div class="middle">
                     <i class="fa fa-caret-left"></i>
-                    <div class="img" style="background-image: url('${this.images[0].directory + this.images[0].img}');"></div>
+                    <div class="img" style="background-image: url('${this.images[this.currentImage].directory + this.images[this.currentImage].img}');"></div>
                     <i class="fa fa-caret-right"></i>
                 </div>
                 <div class="bottom">Nuotraukos pavadinimas/tekstas</div>
@@ -56,6 +66,7 @@ class Lightbox {
         `);
         this.DOM = this.parentDOM.querySelector('.lightbox');
         this.imageDOM = this.DOM.querySelector('.img');
+        this.countDOM = this.DOM.querySelector('.count');
         this.originalSizeDOM = this.DOM.querySelector('.fa-clone');
         this.zoomMinusDOM = this.DOM.querySelector('.fa-search-minus');
         this.zoomPlusDOM = this.DOM.querySelector('.fa-search-plus');
@@ -77,8 +88,7 @@ class Lightbox {
         if (this.currentImage === -1) {
             this.currentImage = this.imageCount - 1;
         }
-        const imagePath = this.images[this.currentImage].directory + this.images[this.currentImage].img;
-        this.imageDOM.style.backgroundImage = `url(${imagePath})`;
+        this.updateImage();
     }
 
     nextImage() {
@@ -86,8 +96,13 @@ class Lightbox {
         if (this.currentImage === this.imageCount) {
             this.currentImage = 0;
         }
+        this.updateImage();
+    }
+
+    updateImage() {
         const imagePath = this.images[this.currentImage].directory + this.images[this.currentImage].img;
         this.imageDOM.style.backgroundImage = `url(${imagePath})`;
+        this.countDOM.innerText = (this.currentImage + 1) + '/' + this.imageCount;
     }
 
     toggleFullScreen() {
