@@ -134,7 +134,6 @@ class Lightbox {
 
         this.downloadDOM.addEventListener('click', () => {
             const url = `http://127.0.0.1:5501${(this.images[this.currentImage].directory).replace('.', '') + this.images[this.currentImage].img}`;
-            console.log(url);
             fetch(url)
                 .then(resp => resp.blob())
                 .then(blob => {
