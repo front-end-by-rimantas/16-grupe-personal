@@ -133,7 +133,22 @@ class Lightbox {
         this.normalscreenDOM.addEventListener('click', () => this.toggleFullScreen())
 
         this.downloadDOM.addEventListener('click', () => {
-            console.log('ACTION: downloadDOM');
+            const url = `http://127.0.0.1:5501${(this.images[this.currentImage].directory).replace('.', '') + this.images[this.currentImage].img}`;
+            console.log(url);
+            fetch(url)
+                .then(resp => resp.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    // the filename you want
+                    a.download = (this.images[this.currentImage].img).replace('/', '');
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(() => alert('oh no!'));
         })
 
         this.exitDOM.addEventListener('click', () => this.close())
