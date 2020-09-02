@@ -1,8 +1,5 @@
 // TODO: kai pele nejuda, po ~10s pasislepia visi action'ai
-// TODO: esc mygtukas uzdaro
 // TODO: paspaudimas juodame fone irgi uzdaro
-// TODO: rodyklemis naviguojame per rodoma sarasa
-// TODO: galerijos nuotraukos naviguojamos ratu, t.y. pvz: is paskutines pereina i pirma
 
 class Lightbox {
     constructor(params) {
@@ -93,6 +90,16 @@ class Lightbox {
         this.imageDOM.style.backgroundImage = `url(${imagePath})`;
     }
 
+    toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
+
     addEvents() {
         this.originalSizeDOM.addEventListener('click', () => {
             console.log('ACTION: originalSizeDOM');
@@ -106,13 +113,9 @@ class Lightbox {
             console.log('ACTION: zoomPlusDOM');
         })
 
-        this.fullscreenDOM.addEventListener('click', () => {
-            console.log('ACTION: fullscreenDOM');
-        })
+        this.fullscreenDOM.addEventListener('click', () => this.toggleFullScreen())
 
-        this.normalscreenDOM.addEventListener('click', () => {
-            console.log('ACTION: normalscreenDOM');
-        })
+        this.normalscreenDOM.addEventListener('click', () => this.toggleFullScreen())
 
         this.downloadDOM.addEventListener('click', () => {
             console.log('ACTION: downloadDOM');
